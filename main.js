@@ -1,10 +1,10 @@
 const products = [
-    { name: "car 1", price: 200, id: 1, quantity: 1, picture: "javascript.png" },
-    { name: "car 2", price: 300, id: 2, quantity: 1, picture: ""  },
-    { name: "car 3", price: 400, id: 3, quantity: 1, picture: ""  },
-    { name: "car 4", price: 500, id: 4, quantity: 1, picture: ""  },
-    { name: "car 5", price: 600, id: 5, quantity: 1, picture: ""  },
-    { name: "car 6", price: 700, id: 6, quantity: 1, picture: ""  },
+    { name: "product 1", price: 200, id: 1, quantity: 1, picture: "javascript.png" },
+    { name: "product 2", price: 300, id: 2, quantity: 1, picture: ""  },
+    { name: "product 3", price: 400, id: 3, quantity: 1, picture: ""  },
+    { name: "product 4", price: 500, id: 4, quantity: 1, picture: ""  },
+    { name: "product 5", price: 600, id: 5, quantity: 1, picture: ""  },
+    { name: "product 6", price: 700, id: 6, quantity: 1, picture: ""  },
 ]
 
 let cart = [];
