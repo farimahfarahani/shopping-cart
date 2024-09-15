@@ -103,7 +103,12 @@ li {
         margin-top: 20px;
     }
 } */
-
+:root {
+    --white: #ffffff;
+    --yellow: #ffd84d;
+    --gray: #808080;
+    --lightgray :#cbcbcb;
+  }
 * {
     margin: 0;
     padding: 0;
@@ -126,7 +131,7 @@ h1 {
 
 .product-card {
     border-radius: 1rem;
-    border: 1px solid gray;
+    border: 1px solid var(--gray);
     padding: 1rem;
     margin: 0.5rem;
     display: flex;
@@ -150,8 +155,8 @@ h1 {
 }
 
 button {
-    background-color: #ffd84d;
-    color: rgb(60, 60, 60);
+    background-color: var(--yellow);
+    color: #3c3c3c;
     padding: 0.6rem 1rem;
     border: none;
     border-radius: 0.6rem;
@@ -177,7 +182,7 @@ button {
 }
 
 hr {
-    color: gray;
+    color: var(--gray);
     margin: 0.5rem 0;
 }
 
@@ -190,7 +195,7 @@ hr {
     justify-content: space-between;
     align-items: center;
     border-radius: 1rem;
-    border: 1px solid rgb(203, 203, 203);
+    border: 1px solid var(--lightgray);
     padding: 0rem 1rem;
     margin: 0.3rem 0;
 }
@@ -211,12 +216,12 @@ hr {
     font-size: 2rem;
     font-weight: 600;
     padding: 0;
-    background-color: white;
+    background-color: var(--white);
     color: gray;
 }
 .mid p {
     padding: 0.3rem 0.5rem;
-    background-color: rgb(203, 203, 203);
+    background-color: var(--lightgray);
     border-radius: 0.3rem;
     margin: 0 0.5rem;
 }

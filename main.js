@@ -1,19 +1,19 @@
 const products = [
-    { name: "product 1", price: 200, id: 1, quantity: 1, picture: "javascript.png" },
-    { name: "product 2", price: 300, id: 2, quantity: 1, picture: ""  },
-    { name: "product 3", price: 400, id: 3, quantity: 1, picture: ""  },
-    { name: "product 4", price: 500, id: 4, quantity: 1, picture: ""  },
-    { name: "product 5", price: 600, id: 5, quantity: 1, picture: ""  },
-    { name: "product 6", price: 700, id: 6, quantity: 1, picture: ""  },
+    { name: "product 1", price: 200, id: 1, quantity: 1, picture: "images/1-ringvideo.png" },
+    { name: "product 2", price: 300, id: 2, quantity: 1, picture: "images/2-firemax.png"  },
+    { name: "product 3", price: 400, id: 3, quantity: 1, picture: "images/3-airtag.png"  },
+    { name: "product 4", price: 500, id: 4, quantity: 1, picture: "images/4-chargingadaptor.png"  },
+    { name: "product 5", price: 600, id: 5, quantity: 1, picture: "images/5-canoncamara.png"  },
+    { name: "product 6", price: 700, id: 6, quantity: 1, picture: "images/6-hplaptop.png"  },
 ]
 
 let cart = [];
 
 
 const productHTML = products.map((product) => `
-    <div class="product-card ">
+    <div class="product-card">
     <h2 class="product-name">${product.name}</h2>
-    
+    <img class= "product-picture" src="${product.picture}"  style="height: 100px; width: 150px;">   
     <strong>${product.price}</strong>
     <button class="product-btn" id=${product.id}>Add To cart</button>
     </div>
@@ -28,6 +28,7 @@ function updateCart() {
     const cartHTML = cart.map((item) => `
     <div class="cart-item">
     <h3 >${item.name}</h3>
+    <img class="cart-picture" src="${item.picture}" style="height:50 px; width:75px;">
         <div class="cart-detail">
             <div class="mid">
             <button onclick={decrItem(${item.id})}>-</button>
@@ -35,7 +36,7 @@ function updateCart() {
             <button onclick={incrItem(${item.id})}>+</button>
             </div>
             <p>${item.price}</p>
-            <button onclick={deleteItem(${item.id})} class="caer-product" id=${item.id}>D</button>
+            <button onclick={deleteItem(${item.id})} class="caer-product" id=${item.id}>Delete</button>
         </div>
     </div>
     `)
@@ -98,6 +99,7 @@ function incrItem(id) {
         updateCart()
         getTotal(cart);
     }
+    console.log(incrItem)
 }
 
 function decrItem(id) {
