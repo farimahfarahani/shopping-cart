@@ -1,14 +1,16 @@
 const products = [
+
+
     { name: "Ring Video", price: 200, id: 1, quantity: 1, picture: "images/1-ringvideo.png", description: "Smart doorbell camera" },
     { name: "Fire Max", price: 300, id: 2, quantity: 1, picture: "images/2-firemax.png", description: "High-performance tablet" },
-    { name: "Airtag", price: 400, id: 3, quantity: 1, picture: "images/3-airtag.png",description: "finding your device easily" },
-    { name: "Adaptor", price: 500, id: 4, quantity: 1, picture: "images/4-chargingadaptor.png",description: "fast charge adaptor" },
-    { name: "Canon Camara", price: 600, id: 5, quantity: 1, picture: "images/5-canoncamara.png",description: "hight quality camara" },
-    { name: "hp Laptop", price: 700, id: 6, quantity: 1, picture: "images/6-hplaptop.png",description: "high quality laptop" },
+    { name: "Airtag", price: 400, id: 3, quantity: 1, picture: "images/3-airtag.png", description: "finding your device easily" },
+    { name: "Adaptor", price: 500, id: 4, quantity: 1, picture: "images/4-chargingadaptor.png", description: "fast charge adaptor" },
+    { name: "Canon Camara", price: 600, id: 5, quantity: 1, picture: "images/5-canoncamara.png", description: "hight quality camara" },
+    { name: "hp Laptop", price: 700, id: 6, quantity: 1, picture: "images/6-hplaptop.png", description: "high quality laptop" },
 ]
 
 let cart = [];
-{/* */}
+/*  */
 
 const productHTML = products.map((product) => `
     <div class="product-card">
@@ -20,36 +22,38 @@ const productHTML = products.map((product) => `
             flex-direction: column;
             align-items: center;
             justify-content: center;" onclick="showModal(${product.id})">Description</p>
-        <div id="myModal_${product.id}" class="modal">
-            <div class="modal-content"  style="border: 4px solid var(--gray); border-radius: 1rem;">
-                 <span class="close"style="display: flex; justify-content: flex-end;" >&times;</span>
-                <h2 style="margin-bottom: 0;">Product Description</h2>
-                <div style="display: flex; align-items: flex-start; margin-top:100px;">
-                <img class="modal-picture" src="${product.picture}" style="height: 200px; width: 250px; margin-top: 2rem; border: 1px solid var(--gray);">
-                <div style="flex-grow: 1;">
-                <h1 class="a-size-base-plus a-text-bold"> About this item </h1>
-                <ul  style="margin-left: 0; padding-left: 0;">
-                <li class="product-li" style="list-style-type:none;">This device has a high quality </li>
-                <li class="product-li" style="list-style-type:none;">It has a gaurantee </li>
-                </ul>
-                <p id="description_${product.id} style="margin-top: 10px;"></p>
-                </div>
-                </div>
-            </div>
-        </div>
+      <div id="myModal_${product.id}" class="modal">
+     <div class="modal-content">
+    <span class="close" style="display: flex; justify-content: flex-end; cursor:pointer;">&times;</span>
+    <h2 style="margin-bottom: 0;">Product Description</h2>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <img class="modal-picture" src="${product.picture}" style="height: auto; max-width: 100%; margin-bottom: 20px;">
+      <div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center;">
+        <h1 class="a-size-base-plus a-text-bold">About this item</h1>
+        <ul style="margin-left: 0; padding-left: 0;">
+          <li class="product-li" style="width: 100%; margin-bottom: 15px;">g is splash, water, and dust resistant and was tested under controlled laboratory conditions with a rating of IP67 under IEC standard 60529 (maximum depth of 1 meter up to 30 minutes). Splash, water, and dust resistance are not permanent conditions and resistance might decrease as a result of normal wear. Refer to the Safety and Handling documentation for cleaning and drying instructions.</li>
+        </ul>
+        <p id="description_${product.id}" style="margin-top: 10px;"></p>
+        <button class="product-btn" id="${product.id}">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
 `)
-/*  */
+
+
+/* modal */
 function showModal(productId) {
     const modal = document.getElementById(`myModal_${productId}`);
     modal.style.display = "block";
-    
+
     const product = products.find(p => p.id === productId);
-    
+
     document.getElementById(`description_${productId}`).textContent = product.description;
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     var modals = document.querySelectorAll(".modal");
     modals.forEach(modal => {
         if (event.target == modal) {
@@ -58,10 +62,10 @@ window.onclick = function(event) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var spans = document.getElementsByClassName("close");
     Array.from(spans).forEach(span => {
-        span.onclick = function() {
+        span.onclick = function () {
             var modal = this.closest('.modal');
             modal.style.display = "none";
         }
@@ -104,6 +108,7 @@ for (let i = 0; i < num; i++) {
 
 }
 
+
 /*  */
 function addToCart(products, id) {
     const product = products.find((product) => product.id === id);
@@ -118,7 +123,7 @@ function addToCart(products, id) {
     getTotal(cart);
 }
 
-/*  */
+/* Calculate get total */
 function getTotal(cart) {
     let { totalItem, cartTotal } = cart.reduce(
         (total, cartItem) => {
@@ -139,7 +144,7 @@ function getTotal(cart) {
 
 }
 
-/*  */
+/* item increase */
 function incrItem(id) {
     for (let i = 0; i < cart.length; i++) {
         if (cart[i] && cart[i].id == id) {
@@ -151,26 +156,96 @@ function incrItem(id) {
     console.log(incrItem)
 }
 
-/*  */
-function decrItem(id) {
-    for (let i = 0; i < cart.length; i++) {
-        if (cart[i] && cart[i].id == id) {
-            cart[i].quantity -= 1;
-        }
-        updateCart()
-        getTotal(cart);
-    }
-}
+/* item decrease */
 
-/*  */
-function deleteItem(id) {
+
+function decrItem(id) {
+    let found = false;
+
     for (let i = 0; i < cart.length; i++) {
-        if (cart[i].id === id) {
-            cart[i].quantity = 1;
-            cart.splice(i, 1)
+        if (cart[i] && cart[i].id === id) {
+            if (cart[i].quantity > 0) {
+                cart[i].quantity -= 1;
+            } else {
+                // Remove the item entirely if quantity reaches 0
+                cart.splice(i, 1);
+            }
+            found = true;
+            break;
         }
     }
-    updateCart()
+
+
+    updateCart();
     getTotal(cart);
 
+    return found;
 }
+
+
+/* delete item function */
+
+
+function deleteItem(id) {
+    let found = false;
+
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id === id) {
+            cart[i].quantity = 0;
+            cart.splice(i, 1);
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        console.log(`Item with ID ${id} not found in cart.`);
+    }
+
+    updateCart();
+    getTotal(cart);
+
+    return found;
+}
+
+/* <div id="myModal_${product.id}" class="modal">
+<div class="modal-content"  style="border: 4px solid var(--gray); border-radius: 1rem;">
+     <span class="close"style="display: flex; justify-content: flex-end;" >&times;</span>
+    <h2 style="margin-bottom: 0;">Product Description</h2>
+    <div style="display: flex; align-items: flex-start; margin-top:100px;">
+    <img class="modal-picture" src="${product.picture}" style="height: 200px; width: 300px; margin-top: 2rem; border: 1px solid var(--gray);">
+    <div style="flex-grow: 1;">
+    <h1 class="a-size-base-plus a-text-bold"> About this item </h1>
+    <ul  style="margin-left: 0; padding-left: 0;">
+    <li class="product-li" style="list-style-type:none; width:400px; margin-bottom:2rem; ">g is splash, water, and dust resistant and was tested under controlled laboratory conditions with a rating of IP67 under IEC standard 60529 (maximum depth of 1 meter up to 30 minutes). Splash, water, and dust resistance are not permanent conditions and resistance might decrease as a result of normal wear. Refer to the Safety and Handling documentation for cleaning and drying instructions. </li>
+    </ul>
+    <button class="product-btn" id= ${product.id}>Add</button>
+    <p id="description_${product.id} style="margin-top: 10px;"></p>
+    </div>
+    </div>
+</div>
+</div> */
+
+
+ /* function decrItem(id) {
+      for (let i = 0; i < cart.length; i++) {
+       if (cart[i] && cart[i].id == id) {
+              cart[i].quantity -= 1;
+         }
+        updateCart()
+         getTotal(cart);
+     }
+ } */
+
+
+ /* function deleteItem(id) {
+  for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) {
+          cart[i].quantity = 1;
+          cart.splice(i, 1)
+      }
+  }
+  updateCart()
+  getTotal(cart);
+
+} */
