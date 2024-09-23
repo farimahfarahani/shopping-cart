@@ -1,15 +1,54 @@
 const products = [
-
-
-    { name: "Ring Video", price: 200, id: 1, quantity: 1, picture: "images/1-ringvideo.png", description: "Smart doorbell camera" },
-    { name: "Fire Max", price: 300, id: 2, quantity: 1, picture: "images/2-firemax.png", description: "High-performance tablet" },
-    { name: "Airtag", price: 400, id: 3, quantity: 1, picture: "images/3-airtag.png", description: "finding your device easily" },
-    { name: "Adaptor", price: 500, id: 4, quantity: 1, picture: "images/4-chargingadaptor.png", description: "fast charge adaptor" },
-    { name: "Canon Camara", price: 600, id: 5, quantity: 1, picture: "images/5-canoncamara.png", description: "hight quality camara" },
-    { name: "hp Laptop", price: 700, id: 6, quantity: 1, picture: "images/6-hplaptop.png", description: "high quality laptop" },
-]
-
-let cart = [];
+    {
+        name: "Ring Video",
+        price: 200,
+        id: 1,
+        quantity: 1,
+        picture: "images/1-ringvideo.png",
+        description: "Smart doorbell camera",
+    },
+    {
+        name: "Fire Max",
+        price: 300,
+        id: 2,
+        quantity: 1,
+        picture: "images/2-firemax.png",
+        description: "High-performance tablet",
+    },
+    {
+        name: "Airtag",
+        price: 400,
+        id: 3,
+        quantity: 1,
+        picture: "images/3-airtag.png",
+        description: "Finding your device easily",
+    },
+    {
+        name: "Adaptor",
+        price: 500,
+        id: 4,
+        quantity: 1,
+        picture: "images/4-chargingadaptor.png",
+        description: "Fast charge adaptor",
+    },
+    {
+        name: "Canon Camera",
+        price: 600,
+        id: 5,
+        quantity: 1,
+        picture: "images/5-canoncamara.png",
+        description: "High quality camera",
+    },
+    {
+        name: "hp Laptop",
+        price: 700,
+        id: 6,
+        quantity: 1,
+        picture: "images/6-hplaptop.png",
+        description: "High quality laptop",
+    },
+];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 /*  */
 
 const productHTML = products.map((product) => `
@@ -34,7 +73,6 @@ const productHTML = products.map((product) => `
           <li class="product-li" style="width: 100%; margin-bottom: 15px;">g is splash, water, and dust resistant and was tested under controlled laboratory conditions with a rating of IP67 under IEC standard 60529 (maximum depth of 1 meter up to 30 minutes). Splash, water, and dust resistance are not permanent conditions and resistance might decrease as a result of normal wear. Refer to the Safety and Handling documentation for cleaning and drying instructions.</li>
         </ul>
         <p id="description_${product.id}" style="margin-top: 10px;"></p>
-        <button class="product-btn" id="${product.id}">Add</button>
       </div>
     </div>
   </div>
@@ -97,6 +135,11 @@ function updateCart() {
     const cartItems = document.querySelector(".cart-items");
     cartItems.innerHTML = cartHTML.join("")
 }
+/* Update LocalStorage */
+function updateLocalStorage() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
 
 
 let num = document.querySelectorAll(".product-btn").length;
@@ -119,6 +162,7 @@ function addToCart(products, id) {
     } else {
         cart.push(product)
     }
+    updateLocalStorage();
     updateCart();
     getTotal(cart);
 }
@@ -150,102 +194,42 @@ function incrItem(id) {
         if (cart[i] && cart[i].id == id) {
             cart[i].quantity += 1;
         }
-        updateCart()
+        updateLocalStorage();
+        updateCart();
         getTotal(cart);
     }
     console.log(incrItem)
 }
 
-/* item decrease */
-
-
+/* Decrement Item Quantity */
 function decrItem(id) {
-    let found = false;
-
     for (let i = 0; i < cart.length; i++) {
-        if (cart[i] && cart[i].id === id) {
-            if (cart[i].quantity > 0) {
-                cart[i].quantity -= 1;
-            } else {
-                // Remove the item entirely if quantity reaches 0
-                cart.splice(i, 1);
-            }
-            found = true;
-            break;
+      if (cart[i] && cart[i].id == id) {
+        if (cart[i].quantity > 1) {
+          cart[i].quantity -= 1;
+        } else {
+          deleteItem(id);
         }
-    }
-
-
-    updateCart();
-    getTotal(cart);
-
-    return found;
-}
-
-
-/* delete item function */
-
-
-function deleteItem(id) {
-    let found = false;
-
-    for (let i = 0; i < cart.length; i++) {
-        if (cart[i].id === id) {
-            cart[i].quantity = 0;
-            cart.splice(i, 1);
-            found = true;
-            break;
-        }
-    }
-
-    if (!found) {
-        console.log(`Item with ID ${id} not found in cart.`);
-    }
-
-    updateCart();
-    getTotal(cart);
-
-    return found;
-}
-
-/* <div id="myModal_${product.id}" class="modal">
-<div class="modal-content"  style="border: 4px solid var(--gray); border-radius: 1rem;">
-     <span class="close"style="display: flex; justify-content: flex-end;" >&times;</span>
-    <h2 style="margin-bottom: 0;">Product Description</h2>
-    <div style="display: flex; align-items: flex-start; margin-top:100px;">
-    <img class="modal-picture" src="${product.picture}" style="height: 200px; width: 300px; margin-top: 2rem; border: 1px solid var(--gray);">
-    <div style="flex-grow: 1;">
-    <h1 class="a-size-base-plus a-text-bold"> About this item </h1>
-    <ul  style="margin-left: 0; padding-left: 0;">
-    <li class="product-li" style="list-style-type:none; width:400px; margin-bottom:2rem; ">g is splash, water, and dust resistant and was tested under controlled laboratory conditions with a rating of IP67 under IEC standard 60529 (maximum depth of 1 meter up to 30 minutes). Splash, water, and dust resistance are not permanent conditions and resistance might decrease as a result of normal wear. Refer to the Safety and Handling documentation for cleaning and drying instructions. </li>
-    </ul>
-    <button class="product-btn" id= ${product.id}>Add</button>
-    <p id="description_${product.id} style="margin-top: 10px;"></p>
-    </div>
-    </div>
-</div>
-</div> */
-
-
- /* function decrItem(id) {
-      for (let i = 0; i < cart.length; i++) {
-       if (cart[i] && cart[i].id == id) {
-              cart[i].quantity -= 1;
-         }
-        updateCart()
-         getTotal(cart);
-     }
- } */
-
-
- /* function deleteItem(id) {
-  for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id === id) {
-          cart[i].quantity = 1;
-          cart.splice(i, 1)
       }
+    }
+    updateLocalStorage();
+    updateCart();
+    getTotal(cart);
   }
-  updateCart()
-  getTotal(cart);
 
-} */
+
+/* Delete Item from Cart */
+function deleteItem(id) {
+    cart = cart.filter((item) => item.id !== id);
+    updateLocalStorage();
+    updateCart();
+    getTotal(cart);
+  }
+
+  
+  
+/* Ensure cart is loaded on page load */
+document.addEventListener("DOMContentLoaded", () => {
+    updateCart(); // Ensure the cart UI is updated
+    getTotal(cart); // Ensure total is displayed correctly
+});
